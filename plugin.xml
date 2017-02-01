@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="heyzap-cordova-admob" version="1.0.1" xmlns="http://apache.org/cordova/ns/plugins/1.0" xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <name>Heyzap Cordova AdMob</name>
+  <description>AdMob Cordova plugin for the Heyzap Cordova Plugin</description>
+  <author>Heyzap Inc.</author>
+  <license>Heyzap</license>
+  <keywords>cordova,heyzap,phonegap,sdk,ad,mobile,mediation,admob</keywords>
+
+  <engines>
+    <engine name="cordova-android" version=">=4.0.0" />
+    <engine name="cordova-ios" version=">=3.8.0" />
+  </engines>
+
+  <!-- iOS -->
+  <platform name="ios">
+
+    <!-- iOS 9 requires apps to use HTTPS; some networks require you to disable App Transport Security to workaround this. -->
+    <config-file target="*-Info.plist" parent="NSAppTransportSecurity">
+      <dict>
+        <key>NSAllowsArbitraryLoads</key>
+        <true/>
+      </dict>
+    </config-file>
+
+    <!-- Hooks -->
+    <hook type="before_plugin_install" src="hooks/before_plugin_install/000_create_symlinks.js" />
+    <!-- / Hooks -->
+
+    <!-- AdMob SDK -->
+    <header-file src="src/ios/Resources/FYBAdMob.h" compiler-flags="-fmodules" />
+    <framework src="src/ios/Fyber_AdMob_7.10.0-r1.framework" custom="true" compiler-flags="-fmodules" />
+    <!-- / AdMob SDK -->
+
+    <!-- External Frameworks -->
+    <framework src="AudioToolbox.framework" />
+    <framework src="AVFoundation.framework" />
+    <framework src="CoreGraphics.framework" />
+    <framework src="CoreMedia.framework" />
+    <framework src="CoreTelephony.framework" />
+    <framework src="EventKit.framework" />
+    <framework src="EventKitUI.framework" />
+    <framework src="MessageUI.framework" />
+    <framework src="MediaPlayer.framework" />
+    <framework src="StoreKit.framework" />
+    <framework src="SystemConfiguration.framework" />
+
+    <framework src="AdSupport.framework" weak="true" />
+    <!-- / External Frameworks -->
+
+    <info>
+      You may need to disable bitcode in your Xcode project settings before building the app.
+      In the Xcode project explorer click on your app project, Go to the 'Build Settings' tab and change 'Enable Bitcode' to 'No' for all the dropdowns that aren't disabled.
+    </info>
+
+  </platform>
+  <!-- / iOS -->
+
+  <!-- Android -->
+  <platform name="android">
+    <framework src="src/android/admob.gradle" custom="true" type="gradleReference" />
+    <!-- AdMob SDK -->
+    <source-file src="src/android/fyber-admob-9.4.0-r2.aar" target-dir="libs" />
+  </platform>
+  <!-- / Android -->
+
+</plugin>
